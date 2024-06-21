@@ -424,6 +424,10 @@ require('lazy').setup({
       -- used for completion, annotations and signatures of Neovim apis
       { 'folke/neodev.nvim', opts = {} },
     },
+
+    opts = {
+      inlay_hints = { enabled = true },
+    },
     config = function()
       -- Brief aside: **What is LSP?**
       --
@@ -784,7 +788,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'lunaperche'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
