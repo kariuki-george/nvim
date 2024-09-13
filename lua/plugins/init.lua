@@ -17,10 +17,9 @@ return {
         group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
         callback = function(event)
           local map = function(keys, func, desc)
-            vim.keymap("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
           end
-
-          map("gd", require("telescope.builtin").lsp_definitions, "[g]oto [d]efinition")
+          map("<leader>k", require("telescope.builtin").lsp_definitions, "[g]oto [d]efinition")
           map("f", vim.lsp.buf.hover, "Hover documentation")
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
@@ -31,28 +30,28 @@ return {
           --    See `:help CursorHold` for information about when this is executed
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
-          if client and client.server_capabilities.documentHighlightProvider then
-            local highlight_augroup = vim.api.nvim_create_augroup("Lsp-highlight", { clear = false })
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
-            })
-
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
-            })
-
-            vim.api.nvim_create_autocmd("LspDetach", {
-              group = vim.api.nvim_create_augroup("Lsp-detach", { clear = true }),
-              callback = function(event2)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = "Lsp-highlight", buffer = event2.buf }
-              end,
-            })
-          end
+          -- if client and client.server_capabilities.documentHighlightProvider then
+          --   local highlight_augroup = vim.api.nvim_create_augroup("Lsp-highlight", { clear = false })
+          --   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+          --     buffer = event.buf,
+          --     group = highlight_augroup,
+          --     callback = vim.lsp.buf.document_highlight,
+          --   })
+          --
+          --   vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+          --     buffer = event.buf,
+          --     group = highlight_augroup,
+          --     callback = vim.lsp.buf.clear_references,
+          --   })
+          --
+          --   vim.api.nvim_create_autocmd("LspDetach", {
+          --     group = vim.api.nvim_create_augroup("Lsp-detach", { clear = true }),
+          --     callback = function(event2)
+          --       vim.lsp.buf.clear_references()
+          --       vim.api.nvim_clear_autocmds { group = "Lsp-highlight", buffer = event2.buf }
+          --     end,
+          --   })
+          -- end
         end,
       })
     end,
@@ -67,6 +66,7 @@ return {
         "vimdoc",
         "html",
         "css",
+        "markdown",
       },
     },
   },
