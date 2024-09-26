@@ -66,7 +66,7 @@ return {
         "vimdoc",
         "html",
         "css",
-        "markdown",
+        "markdown","gopls","rust-analyzer"
       },
     },
   },
@@ -122,10 +122,6 @@ return {
     },
   },
   {
-    "wakatime/vim-wakatime",
-    lazy = false,
-  },
-  {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && yarn install",
@@ -140,4 +136,5 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = { signs = false },
   },
+  
 }
