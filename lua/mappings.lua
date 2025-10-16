@@ -19,3 +19,17 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- vim.keymap.set("n", "<C-l>", "C-right", { desc = "Move focus to the right window" })
 -- vim.keymap.set("n", "<C-j>", "<C-up>", { desc = "Move focus to the lower window" })
 -- vim.keymap.set("n", "<C-k>", "<C-down>", { desc = "Move focus to the upper window" })
+--
+--
+
+-- copilot 
+map('i', '<C-l>', function ()
+  vim.fn.feedkeys(vim.fn['copilot#Accept'](), '')
+end, { desc = 'Copilot Accept', noremap = true, silent = true })
+
+
+-- lsp_lines setup 
+vim.diagnostic.config({
+  virtual_text = true,
+  virual_lines = false
+})

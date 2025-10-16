@@ -38,4 +38,5 @@ lspconfig.gopls.setup{
    analyses={unusedparams=true}
   }}
 }
+lspconfig.prismals.setup{}
 
