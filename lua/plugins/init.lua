@@ -58,26 +58,53 @@ return {
     end,
   },
 
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   branch = "master",
+  --   build = ":TSUpdate",
+  --   lazy = false,
+  --   opts = {
+  --     ensure_installed = {
+  --       "vim",
+  --       "lua",
+  --       "vimdoc",
+  --       "html",
+  --       "css",
+  --       "markdown",
+  --       "go",
+  --       "rust",
+  --       "proto",
+  --       "typescript",
+  --     },
+  --     highlight = {enable = true},
+  --     auto_install = true,
+  --   },
+  -- },
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "vimdoc",
-        "html",
-        "css",
-        "markdown",
-        "go",
-        "rust",
-        "proto",
-        "typescript",
-      },
-      highlight = {enable = true},
-      auto_install = true
-    },
-  },
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  lazy = false,  -- new version does not support lazy loading
+  config = function()
+    require("nvim-treesitter").setup({
+      install_dir = vim.fn.stdpath("data") .. "/site",
+    })
 
+    require("nvim-treesitter").install({
+      "vim", "lua", "vimdoc", "html", "css",
+      "markdown", "go", "rust", "proto", "typescript",
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = {
+        "vim", "lua", "html", "css", "markdown",
+        "go", "rust", "proto", "typescript",
+      },
+      callback = function()
+        vim.treesitter.start()
+      end,
+    })
+  end,
+},
   {
     "williamboman/mason.nvim",
   },

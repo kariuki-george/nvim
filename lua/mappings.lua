@@ -28,6 +28,10 @@ map('i', '<C-l>', function ()
 end, { desc = 'Copilot Accept', noremap = true, silent = true })
 
 
+map("n", "<leader>gi", function()
+  require("nvim-tree.api").tree.toggle_gitignore_filter()
+end, { desc = "Toggle git ignored files" })
+
 -- lsp_lines setup 
 vim.diagnostic.config({
   virtual_text = true,
